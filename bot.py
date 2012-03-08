@@ -132,7 +132,7 @@ class Teenbot(irc.IRCClient):
         filler = 0
     def userJoined(self, user, channel):
         print user.upper()
-        if "mib" in user.lower():
+        if "mib_" in user.lower():
             self.msg(channel, "Hi, " + user + ", welcome to #rteenagers. We will not be able to hear you unless you change your nick with /nick NEWNAME.") # Change in message suggested by Ruska.
     def userQuit(self, user, quitMessage):
         if "peer" in quitMessage:

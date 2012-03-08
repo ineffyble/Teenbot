@@ -99,9 +99,8 @@ class Teenbot(irc.IRCClient):
                     self.notice(user, "You shall not pass!")
             elif msg[0] == "+restart":
                 if sudo == 1:
-                    self.msg(channel, "Be right back :P")
                     self.logger.log("[restarted]")
-                    self.quit(message="Activate warp drive")
+                    self.quit(message="Be right back :P")
             elif msg[0] == "+nick":
                  if sudo == 1:
                     nich = msg[1]

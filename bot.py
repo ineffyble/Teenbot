@@ -81,9 +81,8 @@ class Teenbot(irc.IRCClient):
                     self.quit(message="What did I do wrong?")
                     reactor.stop()
                 elif msg[0] == "+restart":
-                    self.msg(channel, "Be right back :P")
                     self.logger.log("[restarted]")
-                    self.quit(message="Activate warp drive")
+                    self.quit(message="Be right back :P")
                 elif msg[0] == "+nick"
                     nich = msg[1]
                     self.setNick(nich)

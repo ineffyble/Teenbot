@@ -70,9 +70,54 @@ class Teenbot(irc.IRCClient):
             sudo = 0
         if msg.startswith("+"):
             msg = msg.split(' ')
-            if msg[0] == "+join":
-                if sudo == 1:
-                    self.join(msg[1])
+	    if sudo == 1:
+	        if msg[0] == "+join":
+		    self.join(msg[1])
+		elif msg[0] == "+part":
+		    self.part(channel)
+		elif msg[0] == "+die":
+		    self.msg(channel, "Ok :(")
+                    self.logger.log("[died at %s]" % time.asctime(time.localtime(time.time())))
+                    self.quit(message="What did I do wrong?")
+                    reactor.stop()
+		elif msg[0] == "+restart":
+		    self.msg(channel, "Be right back :P")
+                    self.logger.log("[restarted]")
+                    self.quit(message="Activate warp drive")
+		elif msg[0] == "+nick"
+		    nich = msg[1]
+                    self.setNick(nich)
+                    self.nickname = nich
+		elif msg[0] == "+group":
+		    self.msg("NickServ", "GROUP")
+		elif msg[0].upper() == "+SLAPASS":
+                    if len(msg) == 2:
+		        self.msg(msg[1], "How to do a SLAPASS:")
+			self.msg(msg[1], "just type: ")
+			self.msg(msg[1], "!add sex / location / age / photo / aspirations / sexuality / starsign")
+			self.msg(msg[1], "into the chat.")
+			self.msg(msg[1], "This sends the SLAPASS to scaledbot, which stores SLAPASSes for retrieval")
+			self.msg(msg[1], "To view someone's SLAPASS, just type \"!info user\" into the channel.")
+		elif msg.startswith(self.nickname + ":") or msg.startswith(self.nickname + ","):
+		    if "attack" in msg.lower():
+			msg = msg.split(' ')
+			atklist = open('attacks.txt')
+			attack = Template(random.choice(atklist.read().split('\n')))
+			atk = attack.substitute(inp=msg[2])
+			print msg
+			self.kick(channel, msg[2], atk)
+			atklist.close()
+		    if "terminate" in msg.lower():
+			msg = msg.split(' ')
+			protocols = ['ALPHA', 'BETA', 'DELTA', 'OMEGA', 'LLAMA']
+			prot = random.choice(protocols)
+			self.msg(channel, "ATTACK TYPE:  " + prot)
+			reasons = ['For Pony!', 'FOR THE HORDE!', 'NAC MAC FEEGLE!', 'Oh oh, here comes Mr Jelly!', 'Puuuuberty Poooower']
+			reason = random.choice(reasons)
+			self.kick(channel, msg[2], reason)
+	    else:
+		self.notice(user, "You shall not pass!")
+		
             elif msg[0].lower() == "+karma":
                 r = reddit.Reddit(user_agent='Teenbot')
                 guy = r.get_redditor(msg[1])
@@ -86,62 +131,13 @@ class Teenbot(irc.IRCClient):
                 for x in substring:
                     self.msg(channel, substring[num])
                     num = num + 1
-            elif msg[0] == "+part":
-                if sudo == 1:
-                    self.part(channel)
-            elif msg[0] == "+die":
-                if sudo == 1:
-                    self.msg(channel, "Ok :(")
-                    self.logger.log("[died at %s]" % time.asctime(time.localtime(time.time())))
-                    self.quit(message="What did I do wrong?")
-                    reactor.stop()
-                else:
-                    self.notice(user, "You shall not pass!")
-            elif msg[0] == "+restart":
-                if sudo == 1:
-                    self.msg(channel, "Be right back :P")
-                    self.logger.log("[restarted]")
-                    self.quit(message="Activate warp drive")
-            elif msg[0] == "+nick":
-                 if sudo == 1:
-                    nich = msg[1]
-                    self.setNick(nich)
-                    self.nickname = nich
-            elif msg[0] == "+group":
-                 if sudo == 1:
-                    self.msg("NickServ", "GROUP")
             elif msg[0].upper() == "+SLAPASS":
-                if len(msg) == 2:
-                    self.msg(msg[1], "How to do a SLAPASS:")
-                    self.msg(msg[1], "just type: ")
-                    self.msg(msg[1], "!add sex / location / age / photo / aspirations / sexuality / starsign")
-                    self.msg(msg[1], "into the chat.")
-                    self.msg(msg[1], "This sends the SLAPASS to scaledbot, which stores SLAPASSes for retrieval")
-                    self.msg(msg[1], "To view someone's SLAPASS, just type \"!info user\" into the channel.")
-                else:
                     self.msg(user, "How to do a SLAPASS:")
                     self.msg(user, "just type: ")
                     self.msg(user, "!add sex / location / age / photo / aspirations / sexuality / starsign")
                     self.msg(user, "into the chat.")
                     self.msg(user, "This sends the SLAPASS to scaledbot, which stores SLAPASSes for retrieval")
 		    self.msg(user, "To view someone's SLAPASS, just type \"!info user\" into the channel.")
-        elif msg.startswith(self.nickname + ":") or msg.startswith(self.nickname + ","):
-            if "attack" in msg.lower() and sudo == 1:
-                 msg = msg.split(' ')
-                 atklist = open('attacks.txt')
-                 attack = Template(random.choice(atklist.read().split('\n')))
-                 atk = attack.substitute(inp=msg[2])
-                 print msg
-                 self.kick(channel, msg[2], atk)
-                 atklist.close()
-            if "terminate" in msg.lower() and sudo == 1:
-                 msg = msg.split(' ')
-                 protocols = ['ALPHA', 'BETA', 'DELTA', 'OMEGA', 'LLAMA']
-                 prot = random.choice(protocols)
-                 self.msg(channel, "ATTACK TYPE:  " + prot)
-                 reasons = ['For Pony!', 'FOR THE HORDE!', 'NAC MAC FEEGLE!', 'Oh oh, here comes Mr Jelly!', 'Puuuuberty Poooower']
-                 reason = random.choice(reasons)
-                 self.kick(channel, msg[2], reason)
     def action(self, user, channel, msg):
         """When action is seen"""
         filler = 0

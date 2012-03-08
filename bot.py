@@ -111,12 +111,20 @@ class Teenbot(irc.IRCClient):
                  if sudo == 1:
                     self.msg("NickServ", "GROUP")
             elif msg[0].upper() == "+SLAPASS":
-                self.msg(user, "How to do a SLAPASS:")
-                self.msg(user, "just type: ")
-                self.msg(user, "!add sex / location / age / photo / aspirations / sexuality / starsign")
-                self.msg(user, "into the chat.")
-                self.msg(user, "This sends the SLAPASS to scaledbot, which stores SLAPASSes for retrieval")
-		self.msg(user, "To view someone's SLAPASS, just type \"!info user\" into the channel.")
+                if len(msg) == 2:
+                    self.msg(msg[1], "How to do a SLAPASS:")
+                    self.msg(msg[1], "just type: ")
+                    self.msg(msg[1], "!add sex / location / age / photo / aspirations / sexuality / starsign")
+                    self.msg(msg[1], "into the chat.")
+                    self.msg(msg[1], "This sends the SLAPASS to scaledbot, which stores SLAPASSes for retrieval")
+                    self.msg(msg[1], "To view someone's SLAPASS, just type \"!info user\" into the channel.")
+                else:
+                    self.msg(user, "How to do a SLAPASS:")
+                    self.msg(user, "just type: ")
+                    self.msg(user, "!add sex / location / age / photo / aspirations / sexuality / starsign")
+                    self.msg(user, "into the chat.")
+                    self.msg(user, "This sends the SLAPASS to scaledbot, which stores SLAPASSes for retrieval")
+		    self.msg(user, "To view someone's SLAPASS, just type \"!info user\" into the channel.")
         elif msg.startswith(self.nickname + ":") or msg.startswith(self.nickname + ","):
             if "attack" in msg.lower() and sudo == 1:
                  msg = msg.split(' ')

@@ -1,0 +1,32 @@
+This is Teenbot, an IRC bot written for the IRC channel for /r/teenagers,
+#rteenagers on foonetic.
+
+User commands:
+
++karma <user>
+    Checks the reddit karma of a giver reddit user.
++hot
+    Checks the top posts on /r/teenagers.
++SLAPASS
+    Gives instructions on submitting a SLAPASS to scaledbot.
+
+Admin commands:
+
++join <channel>
+    Joins the channel.
++part
+    Leaves the channel.
++die
+    Stops the bot.
++restart
+    Restarts the bot.
++nick <nick>
+    Changes nick to <nick>.
++group
+    Groups nick with NickServ.
++SLAPASS <user>
+    Acts as if <user> typed +SLAPASS.
++attack
+    Kicks user with a humorous kick reason.
++terminate
+    Kicks user with a humorous kick reason.

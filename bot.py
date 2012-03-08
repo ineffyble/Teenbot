@@ -110,6 +110,15 @@ class Teenbot(irc.IRCClient):
             elif msg[0] == "+group":
                  if sudo == 1:
                     self.msg("NickServ", "GROUP")
+			elif msg[0].lower() == "+SLAPASS":
+				self.msg(user, "How to do a SLAPASS:")
+				self.msg(user, "")
+				self.msg(user, "just type: ")
+				self.msg(user, "!add sex / location / age / photo / aspirations / sexuality / starsign")
+				self.msg(user, "into the chat.")
+				self.msg(user, "This sends the SLAPASS to scaledbot, which stores SLAPASSes for retrieval")
+				self.msg(user, "")
+				self.msg(user, "To view someone's SLAPASS, just type \"!info user\" into the channel.")
         elif msg.startswith(self.nickname + ":") or msg.startswith(self.nickname + ","):
             if "attack" in msg.lower() and sudo == 1:
                  msg = msg.split(' ')

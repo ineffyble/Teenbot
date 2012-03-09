@@ -25,13 +25,13 @@ class Teenbot(irc.IRCClient):
     """Teenbot IRC bot"""
 
     nickname = "Teenbot"
-    realname = "Teenbot for \#rteenagers"
+    realname = "Teenbot for \#rteenagers | Owner: neoinr"
     username = "Teenbot"
     versionName = "teenBot"
     versionNum = "0.00 (Beta)"
     versionEnv = "IRC"
     source = "http://github.com/neoinr/teenbot"
-    operatorlist = ['neoinr', 'keve']
+    operatorlist = ['neoinr', 'keve', 'hintss']
     def connectionMade(self):
         irc.IRCClient.connectionMade(self)
         self.logger = MessageLogger(open(self.factory.filename, "a"))

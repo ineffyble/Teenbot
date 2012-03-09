@@ -83,7 +83,7 @@ class Teenbot(irc.IRCClient):
                 elif msg[0] == "+restart":
                     self.logger.log("[restarted]")
                     self.quit(message="Be right back :P")
-                elif msg[0] == "+nick"
+                elif msg[0] == "+nick":
                     nich = msg[1]
                     self.setNick(nich)
                     self.nickname = nich
@@ -113,10 +113,7 @@ class Teenbot(irc.IRCClient):
                         self.msg(channel, "ATTACK TYPE:  " + prot)
                         reasons = ['For Pony!', 'FOR THE HORDE!', 'NAC MAC FEEGLE!', 'Oh oh, here comes Mr Jelly!', 'Puuuuberty Poooower']
                         reason = random.choice(reasons)
-                        self.kick(channel, msg[2], reason)
-            else:
-                self.notice(user, "You shall not pass!")
-                
+                        self.kick(channel, msg[2], reason)                
             elif msg[0].lower() == "+karma":
                 r = reddit.Reddit(user_agent='Teenbot')
                 guy = r.get_redditor(msg[1])

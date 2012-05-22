@@ -1,5 +1,6 @@
 # Teenbot for #rteenagers - A community developed bot
-import reddit # reddit_api for python
+
+import reddit
 from twisted.words.protocols import irc
 from twisted.internet import reactor, protocol
 from twisted.python import log
@@ -7,6 +8,7 @@ from string import Template
 import random
 import time, sys
 import urllib2
+
 class MessageLogger:
     """Logging class"""
     def __init__(self, file):
